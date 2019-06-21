@@ -1,0 +1,28 @@
+<resources>
+    <string name="app_name">ILS</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="nav_header_title">ILS</string>
+    <string name="nav_header_subtitle">Intérprete de Lengua de Señas </string>
+    <string name="nav_header_desc">Navigation header</string>
+    <string name="action_settings">Configuración</string>
+
+    <string name="menu_home">Inicio</string>
+    <string name="menu_tools">Admnistrador</string>
+    <string name="menu_gallery">Consultar palabra</string>
+    <string name="menu_slideshow">Guardar palabra</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hola fragmento en blanco</string>
+    <string name="title_activity_login">Registrarse</string>
+    <string name="prompt_email">Correo</string>
+    <string name="prompt_password">Contraseña</string>
+    <string name="action_sign_in">Ingreso o Registro</string>
+    <string name="action_sign_in_short">Registrarse</string>
+    <string name="welcome">"Bienvenido !"</string>
+    <string name="invalid_username">Usuario no válido</string>
+    <string name="invalid_password">La contraseña debe ser>5 Carácteres</string>
+    <string name="login_failed">"Error de inicio de sesion"</string>
+    <string name="title_activity_main2">Menú Administrador</string>
+    <string name="title_activity_menuactivity">Menú Administrador</string>
+</resources>
