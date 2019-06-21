@@ -59,8 +59,10 @@
             android:layout_marginLeft="25dp"
             android:layout_marginTop="30dp"
             android:layout_marginRight="25dp"
+            android:background="@drawable/boton_general"
             android:text="Ingresar"
-            android:textColor="#196844"
+            android:textAlignment="center"
+            android:textColor="@android:color/white"
             android:textSize="18sp"
             android:textStyle="bold" />
     </LinearLayout>

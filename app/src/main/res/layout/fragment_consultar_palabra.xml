@@ -28,9 +28,11 @@
 
         <EditText
             android:id="@+id/edit_palabra"
-            android:hint="Ingrese la palabra"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:hint="Ingrese la palabra"
             android:inputType="textPersonName" />
 
         <Button
@@ -38,8 +40,14 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_above="@+id/layout_button"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
             android:layout_marginBottom="37dp"
-            android:text="Consultar" />
+            android:background="@drawable/boton_general"
+            android:text="Consultar"
+            android:textAlignment="center"
+            android:textColor="@android:color/white"
+            android:textStyle="bold" />
 
 
     </LinearLayout>

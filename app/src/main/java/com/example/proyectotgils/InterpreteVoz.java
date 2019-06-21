@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -21,6 +22,8 @@ public class InterpreteVoz extends Fragment {
     private ImageButton btnMicrofono;
     private TextToSpeech toSpeech;
     private EditText palabra;
+    private TextView textpalabra;
+    String mostrarPälabra = null;
     int resultado;
     private View view;
 
@@ -30,6 +33,7 @@ public class InterpreteVoz extends Fragment {
         view = inflater.inflate(R.layout.fragment_interprete_voz, container, false);
         btnMicrofono = view.findViewById(R.id.btn_microfono);
         palabra = view.findViewById(R.id.palabra);
+        textpalabra = view.findViewById(R.id.text_palabra);
 
         toSpeech = new TextToSpeech(view.getContext(), new TextToSpeech.OnInitListener() {
             @Override
@@ -71,6 +75,10 @@ public class InterpreteVoz extends Fragment {
                 if(resultCode == Activity.RESULT_OK && data != null){
                     ArrayList<String> resultado = data.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS);
                     palabra.setText(resultado.get(0));
+                    textpalabra.setText(resultado.get((0)));
+                    mostrarPälabra = palabra.getText().toString().trim();
+                    textpalabra.setText(mostrarPälabra);
+
                     if(resultado.get(0).toLowerCase().trim().replace(" ", "").equals("comandoa")){
                         toSpeech.speak("Usted ha dicho "+resultado.get(0),TextToSpeech.QUEUE_FLUSH, null);
                         String[] x = {"A"};
@@ -80,7 +88,7 @@ public class InterpreteVoz extends Fragment {
                         String[] x = {"B"};
                         //new EnviarMensaje().execute(x);
                     }else{
-                        toSpeech.speak("Este comando no es valido.",TextToSpeech.QUEUE_FLUSH, null);
+                        toSpeech.speak("Esta palabra no existe actualmente",TextToSpeech.QUEUE_FLUSH, null);
                     }
 
                 }

@@ -8,38 +8,51 @@
 
     <ImageView
         android:id="@+id/image_view"
-        android:layout_width="300dp"
-        android:layout_height="300dp"
+        android:layout_width="335dp"
+        android:layout_height="401dp"
         android:layout_above="@+id/layout_button"
         android:layout_alignStart="@+id/layout_button"
         android:layout_alignEnd="@+id/layout_button"
-        android:layout_marginStart="85dp"
-        android:layout_marginEnd="100dp"
-        android:layout_marginBottom="162dp"
+        android:layout_marginStart="38dp"
+        android:layout_marginEnd="38dp"
+        android:layout_marginBottom="105dp"
         android:src="@mipmap/ic_launcher" />
 
     <LinearLayout
         android:id="@+id/layout_button"
-        android:layout_alignParentBottom="true"
-        android:weightSum="2"
-        android:orientation="horizontal"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-        
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="13dp"
+        android:orientation="horizontal"
+        android:weightSum="2">
+
         <Button
             android:id="@+id/btn_cargar"
-            android:text="Cargar Imagen"
-            android:layout_weight="1"
             android:layout_width="0dp"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_weight="1"
+            android:background="@drawable/boton_general"
+            android:text="Cargar Imagen"
+            android:textAlignment="center"
+            android:textColor="@android:color/white"
+            android:textStyle="bold" />
 
         <Button
             android:id="@+id/btn_guardar"
-            android:text="Guardar Imagen"
-            android:enabled="false"
-            android:layout_weight="1"
             android:layout_width="0dp"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_weight="1"
+            android:background="@drawable/boton_general"
+            android:enabled="false"
+            android:text="Guardar Imagen"
+            android:textAlignment="center"
+            android:textColor="@android:color/white"
+            android:textStyle="bold" />
     </LinearLayout>
 
 
