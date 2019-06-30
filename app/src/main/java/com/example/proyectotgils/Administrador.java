@@ -29,6 +29,8 @@ public class Administrador extends Fragment {
         btnlogin = view.findViewById(R.id.btn_login);
         txtuser = view.findViewById(R.id.txtusuario);
         txtcont = view.findViewById(R.id.txtcontrasenia);
+        txtuser.setText("admin");
+        txtcont.setText("admin");
 
         btnlogin.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {

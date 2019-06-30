@@ -2,14 +2,14 @@ package com.example.proyectotgils.Utilidades;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-
 import java.io.ByteArrayOutputStream;
-import java.io.InputStream;
+import java.io.File;
+import java.io.FileOutputStream;
 
 public class ConvertirBitmap {
 
     public static byte[] getBytes(Bitmap bitmap){
-        ByteArrayOutputStream stream = new ByteArrayOutputStream();
+       ByteArrayOutputStream stream = new ByteArrayOutputStream();
         bitmap.compress(Bitmap.CompressFormat.PNG, 0, stream);
         return stream.toByteArray();
     }

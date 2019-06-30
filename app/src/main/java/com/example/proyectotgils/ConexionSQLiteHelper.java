@@ -7,8 +7,14 @@ import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.database.sqlite.SQLiteQueryBuilder;
+import android.net.Uri;
+import android.provider.MediaStore;
 
 import com.example.proyectotgils.Utilidades.utilidades;
+import com.example.proyectotgils.dao.Palabra;
+
+import java.sql.ResultSet;
+import java.util.ArrayList;
 
 public class ConexionSQLiteHelper extends SQLiteOpenHelper {
 
@@ -38,35 +44,37 @@ public class ConexionSQLiteHelper extends SQLiteOpenHelper {
         mcursor=this.getReadableDatabase().query(utilidades.TBL_USUARIO, new String[]{utilidades.CAMPO_ID_USUARIO,
                utilidades.CAMPO_USUARIO, utilidades.CAMPO_CONTRASENIA}, "usuario like '" + user+"'"+"and contrasenia like'"+
                 password+"'", null, null, null,null);
-                //Nota buscar como haria las comillas a partir de usuario like
         return mcursor;
     }
 
-    public void InsertarDatos(String palabra_gif, byte[] Image_GIF) throws SQLException{
+    public void InsertarDatos(String palabra_gif, String nombre_archivo, String nombre_archivo_equipo) throws SQLException{
         SQLiteDatabase db = getWritableDatabase();
         ContentValues valores = new ContentValues();
         valores.put(utilidades.CAMPO_PALABRA, palabra_gif);
-        valores.put(utilidades.CAMPO_GIF, Image_GIF);
+        valores.put(utilidades.CAMPO_NOMBREIMGARCHIVO, nombre_archivo);
+        valores.put(utilidades.CAMPO_NOMBREIMGARCHIVOEQUIPO, nombre_archivo_equipo);
         db.insert(utilidades.TBL_PALABRA, null, valores);
     }
 
-    public byte[] ObtenerDatos(String palabra_gif){
+    public Palabra ObtenerDatos(String palabra_gif){
         SQLiteDatabase db = this.getWritableDatabase();
         SQLiteQueryBuilder qb = new SQLiteQueryBuilder();
-
-        String[] seleccionar = {utilidades.CAMPO_GIF};
-
+        Palabra mipalabra = null;
+        String[] seleccionar = {utilidades.CAMPO_ID_PALABRA, utilidades.CAMPO_PALABRA, utilidades.CAMPO_NOMBREIMGARCHIVO, utilidades.CAMPO_NOMBREIMGARCHIVOEQUIPO};
         qb.setTables(utilidades.TBL_PALABRA);
-
         Cursor cursor = qb.query(db, seleccionar, "palabra = ?", new String[]{palabra_gif},null,null,null);
-        byte[] resultado = null;
         if (cursor.moveToFirst()) {
+            mipalabra = new Palabra(  );
             do {
-                resultado = cursor.getBlob(cursor.getColumnIndex(utilidades.CAMPO_GIF));
+                mipalabra.setNombrePalabra( cursor.getString(cursor.getColumnIndex(utilidades.CAMPO_PALABRA)) );
+                mipalabra.setNombreArchivoEquipo( cursor.getString(cursor.getColumnIndex(utilidades.CAMPO_NOMBREIMGARCHIVOEQUIPO)) );
+                mipalabra.setNombreArchivo( cursor.getString(cursor.getColumnIndex(utilidades.CAMPO_NOMBREIMGARCHIVO)) );
+                break;
             }while (cursor.moveToNext());
         }
-        return resultado;
+        return mipalabra;
     }
+
 
     //Validar si la palabra existe, no permita guardarla
     public String validarPalabra(String palabra){
