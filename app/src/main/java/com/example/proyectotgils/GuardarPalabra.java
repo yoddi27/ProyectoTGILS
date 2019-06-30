@@ -60,13 +60,12 @@ public class GuardarPalabra extends Fragment {
     private Button btnCargar, btnGuardar;
     private EditText palabra;
     private InputStream entradaStreamGif;
-    private Bitmap bitmap;
     private Uri uri;
 
     public View onCreateView(final LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        view = inflater.inflate(R.layout.fragment_guardar_palabra, container, false);
 
+        view = inflater.inflate(R.layout.fragment_guardar_palabra, container, false);
         imagenGif =  view.findViewById(R.id.image_view);
         palabra = view.findViewById(R.id.txtpalabra_gif);
         btnCargar =  view.findViewById(R.id.btn_cargar);
@@ -75,14 +74,14 @@ public class GuardarPalabra extends Fragment {
         btnCargar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                CargarImagen();
+                cargarImagen();
             }
         });
 
         btnGuardar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                GuardarImagenGif();
+                guardarImagenGif();
             }
         });
 
@@ -96,28 +95,11 @@ public class GuardarPalabra extends Fragment {
             uri = data.getData();
             imagenGif.setImageURI(uri);
             try {
-
                 entradaStreamGif = getContext().getContentResolver().openInputStream(uri);
-                //se captura el archivo .gif
                 InputStream entradaAnimacionGif = getContext().getContentResolver().openInputStream(uri);
                 byte[] bytes = IOUtils.toByteArray(entradaAnimacionGif);
                 imagenGif.setBytes(bytes);
                 imagenGif.startAnimation();
-
-                //File archivoGIF = new File( String.valueOf( uri ) );
-         //       FileOutputStream fos = new FileOutputStream( archivoGIF );
-
-                //File archivoGIFDes = getContext().getDir( "gracias.gif",Context.MODE_PRIVATE);
-               // fos.write(  );
-
-                //OutputStream fileOutputStream = getContext().openFileOutput("gracias.gif", Context.MODE_PRIVATE);
-
-
-                // copyFile(archivoGIF,  archivoGIFDes);
-               // Files.copy(archivoGIF.toPath(), fileOutputStream);
-
-
-
 
             }catch(IOException ex){
                 ex.printStackTrace();
@@ -126,159 +108,97 @@ public class GuardarPalabra extends Fragment {
         }
     }
 
-    private void copyFile(InputStream in, OutputStream out) throws IOException {
+    private void copiarArchivo(InputStream inputStream, OutputStream outputStream) throws IOException {
         byte[] buffer = new byte[1024];
         int read;
-        while((read = in.read(buffer)) != -1){
-            out.write(buffer, 0, read);
+
+        while((read = inputStream.read(buffer)) != -1){
+            outputStream.write(buffer, 0, read);
         }
     }
 
-    private void GuardarImagenGif(){
+    private void guardarImagenGif(){
         ConexionSQLiteHelper conn=new ConexionSQLiteHelper(getContext(), utilidades.NOMBRE_DB,null, utilidades.VERSION_DB);
         SQLiteDatabase db=conn.getWritableDatabase();
+
         String nombreArchivoEquipo;
         String nombreOriginalArchivo;
-        ByteArrayOutputStream stream;
-        byte[] byteArray;
+        String datoPalabra;
 
-        String dato_palabra = conn.validarPalabra(palabra.getText().toString().trim().toLowerCase());
+        datoPalabra = conn.validarPalabra(palabra.getText().toString().trim().toLowerCase());
 
-        if (dato_palabra != null) {
-            Toast.makeText( getContext(), "La palabra "+dato_palabra+" ya existe, no se puede guardar!", Toast.LENGTH_LONG ).show();
+        if (datoPalabra != null) {
+            Toast.makeText( getContext(), "La palabra "+datoPalabra+" ya existe, no se puede guardar!", Toast.LENGTH_LONG ).show();
         }
         else {
             if (!TextUtils.isEmpty(palabra.getText().toString().trim())) {
                 nombreArchivoEquipo = UUID.randomUUID().toString()+".gif";
                 nombreOriginalArchivo = FilenameUtils.getName(uri.getPath());
-                System.out.println(FilenameUtils.getFullPath( uri.getPath() ));
-                //Toast.makeText(getContext(), "Nombre original archivo: "+nombreOriginalArchivo, Toast.LENGTH_SHORT).show();
+
                 try {
                     //Se almacena en base de datos
                     conn.InsertarDatos(palabra.getText().toString().trim().toLowerCase(), nombreOriginalArchivo, nombreArchivoEquipo);
-
                     //se asegura que no se guarden imagenes con el mismo nombre...
                     if(almacenarArchivo(nombreArchivoEquipo)){
-                        Toast.makeText( getContext(), "La palabra fue almacenada exitosamente!", Toast.LENGTH_LONG ).show();
+                        Toast.makeText( getContext(), "La palabra e imagen guardados con éxito!", Toast.LENGTH_LONG ).show();
                     }else{
                         Toast.makeText( getContext(), "Se presento un problema con el almacenamiento de la imagen!", Toast.LENGTH_LONG ).show();
                     }
-                  /*  bitmap = BitmapFactory.decodeStream(entradaStreamGif);
-                    stream = new ByteArrayOutputStream();
-                    bitmap.compress( Bitmap.CompressFormat.PNG, 100, stream);
-                    byteArray = stream.toByteArray();
-
-                    //salida del archivo
-                    FileOutputStream fileOutputStream = getContext().openFileOutput(nombreArchivoEquipo, Context.MODE_PRIVATE);
-                    fileOutputStream.write(byteArray);
-                    fileOutputStream.close();*/
-
                 } catch (SQLException e) {
                     e.printStackTrace();
                 }
-
-
                 Toast.makeText( getContext(), "Palabra "+palabra.getText().toString().trim()+" guardada con éxito!", Toast.LENGTH_LONG ).show();
             }
             else {
-                Toast.makeText( getContext(), dato_palabra+"Campo Vacío, Debe ingresar la palabra de la imagen!", Toast.LENGTH_LONG ).show();
+                Toast.makeText( getContext(), "Campo Vacío, debe ingresar la palabra de la imagen!", Toast.LENGTH_LONG ).show();
             }
             db.close();
         }
-
     }
 
-    private boolean almacenarArchivo(String fileName) {
-        //String fileName = "emp.gif";
-        InputStream in = null;
-        OutputStream out = null;
-        File outFile = null;
-        boolean guardo = false;
+    private boolean almacenarArchivo(String nombreArchivo) {
+        InputStream inputStream = null;
+        OutputStream outputStream = null;
+        File salidaArchivo = null;
+        boolean guarda = false;
+
         try {
-            //in = assetManager.open(fileName);
-            in = entradaStreamGif;
-            outFile = new File( getContext().getFilesDir().getAbsolutePath(), fileName );
-            out = new FileOutputStream( outFile );
-            copyFile( in, out );
-            guardo = true;
+            inputStream = entradaStreamGif;
+            salidaArchivo = new File( getContext().getFilesDir().getAbsolutePath(), nombreArchivo);
+            outputStream = new FileOutputStream(salidaArchivo);
+
+            copiarArchivo(inputStream, outputStream);
+            guarda = true;
         } catch (IOException e) {
-            Log.e( "tag", "Failed to copy asset file: " + fileName, e );
+            Log.e( "tag", "Error al copiar el archivo: " + nombreArchivo, e);
         } finally {
-            if (in != null) {
+            if (inputStream != null) {
                 try {
-                    in.close();
+                    inputStream.close();
                 } catch (IOException e) {
-                    // NOOP
+                    e.printStackTrace();
                 }
             }
-            if (out != null) {
+            if (outputStream != null) {
                 try {
-                    out.close();
+                    outputStream.close();
                 } catch (IOException e) {
-                    // NOOP
+                    e.printStackTrace();
                 }
             }
         }
-        return guardo;
+        return guarda;
     }
 
-    private void ConvertirSrcImgaBitmap(){
-        //Convertir src de la imagen a mapa de bits (Bitmap)
-        View mostrar;
-        final Bitmap bitmap = ((BitmapDrawable)imagenGif.getDrawable()).getBitmap();
-        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-        final LayoutInflater inflater = getActivity().getLayoutInflater();
+    private void cargarImagen(){
 
-        mostrar = inflater.inflate(R.layout.dialogo_guardar, null);
-        final EditText editText = mostrar.findViewById(R.id.txt_palabra);
-        builder.setView(mostrar);
-
-        //Set button
-        builder.setNegativeButton("CANCELAR", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                dialog.dismiss();
-            }
-        });
-
-        builder.setPositiveButton("GUARDAR", new DialogInterface.OnClickListener() {
-
-            ConexionSQLiteHelper conn=new ConexionSQLiteHelper(getContext(), utilidades.NOMBRE_DB,null, utilidades.VERSION_DB);
-            SQLiteDatabase db=conn.getWritableDatabase();
-
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                String dato_palabra = conn.validarPalabra(editText.getText().toString().trim().toLowerCase());
-
-                if (dato_palabra != null) {
-                    Toast.makeText( getContext(), "La palabra "+dato_palabra+" ya existe, no se puede guardar!", Toast.LENGTH_LONG ).show();
-                }
-                else {
-                    if (!TextUtils.isEmpty(editText.getText().toString().trim())) {
-                        //conn.InsertarDatos(editText.getText().toString().trim().toLowerCase(), ConvertirBitmap.getBytes( bitmap ) );
-                        Toast.makeText( getContext(), "Palabra "+editText.getText().toString().trim()+" guardada con éxito!", Toast.LENGTH_LONG ).show();
-                    } else {
-                        Toast.makeText( getContext(), dato_palabra+"Campo Vacío, Debe ingresar la palabra de la imagen!", Toast.LENGTH_LONG ).show();
-                    }
-                    db.close();
-                }
-            }
-        });
-
-        builder.show();
-    }
-
-    private void CargarImagen(){
         ActivityCompat.requestPermissions(getActivity(), new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, SELECCIONAR_IMAGEN);
         Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
         intent.setType("image/*");
-       // File picture = getContext().getDir(Environment.DIRECTORY_PICTURES, Context.MODE_PRIVATE);
-                //Environment.getExternalStoragePublicDirectory( Environment.DIRECTORY_PICTURES );
-       // String picName = "yodi.gif";
-       // File img = new File( picture, picName );
-       // Uri uri = Uri.fromFile( img );
-       // intent.putExtra( MediaStore.EXTRA_OUTPUT, uri );
         startActivityForResult(intent, SELECCIONAR_IMAGEN);
     }
-
 }
+
+
+
+

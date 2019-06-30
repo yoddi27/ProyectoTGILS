@@ -21,7 +21,7 @@
             android:fontFamily="@font/gabriela"
             android:textAlignment="center" />
 
-        <ImageView
+        <com.felipecsl.gifimageview.library.GifImageView
             android:id="@+id/img_interpretada"
             android:layout_width="319dp"
             android:layout_height="270dp"
