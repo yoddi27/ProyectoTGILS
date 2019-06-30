@@ -13,28 +13,26 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <TextView
+       <!-- <TextView
             android:id="@+id/text_palabra"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="15dp"
             android:fontFamily="@font/gabriela"
-            android:textAlignment="center" />
+            android:textAlignment="center" />-->
 
         <com.felipecsl.gifimageview.library.GifImageView
             android:id="@+id/img_interpretada"
-            android:layout_width="319dp"
-            android:layout_height="270dp"
-            android:layout_marginLeft="15dp"
-            android:layout_marginTop="30dp"
-            android:layout_marginRight="10dp"
-            android:src="@mipmap/ic_launcher" />
+            android:layout_width="370dp"
+            android:layout_height="370dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginRight="8dp" />
 
         <ImageButton
             android:id="@+id/btn_microfono"
-            android:layout_width="76dp"
-            android:layout_height="76dp"
-            android:layout_marginLeft="140dp"
+            android:layout_width="55dp"
+            android:layout_height="55dp"
+            android:layout_marginLeft="145dp"
             android:layout_marginTop="40dp"
             android:adjustViewBounds="true"
             android:background="@android:color/transparent"
@@ -62,9 +60,9 @@
                 android:id="@+id/btn_ok"
                 android:layout_width="72dp"
                 android:layout_height="36dp"
-                android:layout_marginLeft="-20dp"
+                android:layout_marginLeft="-12dp"
                 android:layout_marginTop="25dp"
-                android:background="@drawable/boton_interpretar"
+                android:background="@drawable/boton_general"
                 android:text="@android:string/yes"
                 android:textAlignment="center"
                 android:textColor="@android:color/white"

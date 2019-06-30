@@ -8,9 +8,9 @@
     <string name="action_settings">Configuración</string>
 
     <string name="menu_home">Inicio</string>
-    <string name="menu_tools">Admnistrador</string>
-    <string name="menu_gallery">Consultar palabra</string>
-    <string name="menu_slideshow">Guardar palabra</string>
+    <string name="menu_tools">Tools</string>
+    <string name="menu_gallery">Gallery</string>
+    <string name="menu_slideshow">Show</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hola fragmento en blanco</string>

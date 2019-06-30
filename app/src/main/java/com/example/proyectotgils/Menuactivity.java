@@ -1,5 +1,6 @@
 package com.example.proyectotgils;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.FragmentManager;
@@ -51,16 +52,7 @@ public class Menuactivity extends AppCompatActivity
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
-
         return super.onOptionsItemSelected(item);
     }
 
@@ -76,6 +68,11 @@ public class Menuactivity extends AppCompatActivity
         } else if (id == R.id.nav_slideshow) {
             framentManager.beginTransaction().replace(R.id.contenedor,new GuardarPalabra()).commit();
         }
+        else if (id == R.id.cerrar_sesion){
+            Intent intent= new Intent (getApplication(), MainActivity.class);
+            startActivity(intent);
+        }
+
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;

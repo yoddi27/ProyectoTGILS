@@ -7,17 +7,40 @@
     tools:context=".GuardarPalabra">
 
 
-    <com.felipecsl.gifimageview.library.GifImageView
-        android:id="@+id/image_view"
-        android:layout_width="300dp"
-        android:layout_height="300dp"
-        android:layout_above="@+id/layout_button"
-        android:layout_alignStart="@+id/layout_button"
-        android:layout_alignEnd="@+id/layout_button"
-        android:layout_marginStart="38dp"
-        android:layout_marginEnd="38dp"
-        android:layout_marginBottom="105dp"
-        android:src="@mipmap/ic_launcher" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/titulo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:fontFamily="@font/gabriela"
+            android:text="Cargue la imagen e ingrese la palabra a interpretar"
+            android:textAlignment="center"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
+        <com.felipecsl.gifimageview.library.GifImageView
+            android:id="@+id/image_view"
+            android:layout_width="370dp"
+            android:layout_height="370dp"
+            android:layout_marginTop="10dp" />
+
+        <EditText
+            android:id="@+id/txtpalabra_gif"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="15dp"
+            android:layout_marginRight="20dp"
+            android:fontFamily="@font/gabriela"
+            android:hint="Ingrese la palabra a interpretar"
+            android:inputType="textPersonName" />
+
+    </LinearLayout>
 
     <LinearLayout
         android:id="@+id/layout_button"
@@ -55,28 +78,6 @@
             android:textColor="@android:color/white"
             android:textStyle="bold" />
     </LinearLayout>
-
-    <EditText
-        android:id="@+id/txtpalabra_gif"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_above="@+id/image_view"
-        android:layout_alignParentEnd="true"
-        android:layout_marginEnd="109dp"
-        android:layout_marginBottom="40dp"
-        android:ems="10"
-        android:hint="Ingrese la palabra"
-        android:inputType="textPersonName" />
-
-    <TextView
-        android:id="@+id/titulo"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_above="@+id/txtpalabra"
-        android:layout_alignParentEnd="true"
-        android:layout_marginEnd="198dp"
-        android:layout_marginBottom="9dp"
-        android:text="Ingrese la palabra" />
 
 
 </RelativeLayout>

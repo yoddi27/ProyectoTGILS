@@ -10,14 +10,15 @@
 
     <com.felipecsl.gifimageview.library.GifImageView
         android:id="@+id/img_view"
-        android:layout_width="300dp"
-        android:layout_height="300dp"
+        android:layout_width="370dp"
+        android:layout_height="370dp"
         android:layout_above="@+id/layout_button"
         android:layout_alignStart="@+id/layout_button"
         android:layout_alignEnd="@+id/layout_button"
-        android:layout_marginStart="38dp"
-        android:layout_marginEnd="38dp"
-        android:layout_marginBottom="105dp" />
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="30dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginBottom="100dp" />
 
     <LinearLayout
         android:id="@+id/layout_button"
@@ -34,6 +35,7 @@
             android:layout_marginLeft="20dp"
             android:layout_marginRight="20dp"
             android:hint="Ingrese la palabra"
+            android:fontFamily="@font/gabriela"
             android:inputType="textPersonName" />
 
         <Button

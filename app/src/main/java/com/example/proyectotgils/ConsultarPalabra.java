@@ -1,40 +1,23 @@
 package com.example.proyectotgils;
 
 import android.database.sqlite.SQLiteDatabase;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.graphics.drawable.BitmapDrawable;
-import android.media.Image;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.animation.TranslateAnimation;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.Toast;
 
-import com.bumptech.glide.Glide;
-import com.example.proyectotgils.Utilidades.ConvertirBitmap;
 import com.example.proyectotgils.Utilidades.utilidades;
 import com.example.proyectotgils.dao.Palabra;
 import com.felipecsl.gifimageview.library.GifImageView;
 
 import org.apache.commons.io.IOUtils;
 
-import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
-import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.InputStream;
-
-import static android.view.View.GONE;
 
 public class ConsultarPalabra extends Fragment {
 
