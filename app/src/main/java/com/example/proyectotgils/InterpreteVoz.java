@@ -107,13 +107,15 @@ public class InterpreteVoz extends Fragment {
 
     public void consultarImgXPalabra(){
         conn = new ConexionSQLiteHelper(getContext(), utilidades.NOMBRE_DB,null, utilidades.VERSION_DB);
-        Palabra datos = conn.ObtenerDatos(palabra.getText().toString().trim().toLowerCase());
+        String cadenaSinAcentos = Administrador.palabraSinAcento(palabra.getText().toString().toLowerCase());
+        Palabra datos = conn.ObtenerDatos(cadenaSinAcentos);
         db=conn.getWritableDatabase();
 
         if (datos != null) {
             try{
                 FileInputStream entradaAnimacionGif = new FileInputStream(getContext().getFilesDir().getPath()+ "/" + datos.getNombreArchivoEquipo());
                 byte[] bytes = IOUtils.toByteArray(entradaAnimacionGif);
+                imgInterpretada.setVisibility(View.VISIBLE);
                 imgInterpretada.setBytes(bytes);
                 imgInterpretada.startAnimation();
             }catch (IOException io){
@@ -121,10 +123,13 @@ public class InterpreteVoz extends Fragment {
             }
         }
         else if(palabra.getText().toString().isEmpty()){
+            toSpeech.speak("Debe ingresar una palabra",TextToSpeech.QUEUE_FLUSH, null);
             Toast.makeText(getContext(), "Debe ingresar una palabra!", Toast.LENGTH_SHORT).show();
         }
         else {
+            toSpeech.speak("La palabra "+ palabra.getText().toString()+ " no existe actualmente",TextToSpeech.QUEUE_FLUSH, null);
             Toast.makeText(getContext(), "La palabra "+"'"+palabra.getText().toString().trim()+"'"+" No existe!", Toast.LENGTH_SHORT).show();
+            imgInterpretada.setVisibility(View.INVISIBLE);
         }
         db.close();
     }
@@ -132,25 +137,30 @@ public class InterpreteVoz extends Fragment {
     public void consultarImgXVoz(ArrayList<String> resultado){
         db=conn.getWritableDatabase();
         palabra.setText(resultado.get(0).trim().toLowerCase());
-        //textpalabra.setText(resultado.get(0).trim().toLowerCase());
-        Palabra datos = conn.ObtenerDatos(palabra.getText().toString().trim().toLowerCase());
+        String cadenaSinAcentos = Administrador.palabraSinAcento(palabra.getText().toString().toLowerCase());
+        Palabra datos = conn.ObtenerDatos(cadenaSinAcentos);
 
         if (datos != null){
             try{
                 FileInputStream entradaAnimacionGif = new FileInputStream(getContext().getFilesDir().getPath()+ "/" + datos.getNombreArchivoEquipo());
                 byte[] bytes = IOUtils.toByteArray(entradaAnimacionGif);
+                imgInterpretada.setVisibility(View.VISIBLE);
                 imgInterpretada.setBytes(bytes);
                 imgInterpretada.startAnimation();
             }catch (IOException io){
                 io.printStackTrace();
             }
-            toSpeech.speak("Usted ha dicho "+resultado.get(0),TextToSpeech.QUEUE_FLUSH, null);
+            //toSpeech.speak("Usted ha dicho "+resultado.get(0),TextToSpeech.QUEUE_FLUSH, null);
         }
         else if(palabra.getText().toString().isEmpty()){
+            toSpeech.speak("Debe ingresar una palabra",TextToSpeech.QUEUE_FLUSH, null);
             Toast.makeText(getContext(), "Debe ingresar una palabra", Toast.LENGTH_SHORT).show();
         }
         else {
             toSpeech.speak("La palabra "+ palabra.getText().toString()+ " no existe actualmente",TextToSpeech.QUEUE_FLUSH, null);
+            Toast.makeText(getContext(), "La palabra "+ palabra.getText().toString()+ " no existe actualmente", Toast.LENGTH_SHORT).show();
+            imgInterpretada.setVisibility(View.INVISIBLE);
+
         }
         db.close();
     }

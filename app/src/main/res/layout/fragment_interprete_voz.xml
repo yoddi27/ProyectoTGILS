@@ -13,13 +13,16 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-       <!-- <TextView
-            android:id="@+id/text_palabra"
+        <TextView
+            android:id="@+id/titulo"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="15dp"
+            android:layout_marginTop="5dp"
             android:fontFamily="@font/gabriela"
-            android:textAlignment="center" />-->
+            android:text="Ingrese la palabra por voz o texto que desea sea interpretada "
+            android:textAlignment="center"
+            android:textSize="18sp"
+            android:textStyle="bold" />
 
         <com.felipecsl.gifimageview.library.GifImageView
             android:id="@+id/img_interpretada"
@@ -33,7 +36,7 @@
             android:layout_width="55dp"
             android:layout_height="55dp"
             android:layout_marginLeft="145dp"
-            android:layout_marginTop="40dp"
+            android:layout_marginTop="10dp"
             android:adjustViewBounds="true"
             android:background="@android:color/transparent"
             android:scaleType="fitCenter"
@@ -49,9 +52,8 @@
                 android:layout_width="250dp"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="18dp"
-                android:layout_marginTop="25dp"
+                android:layout_marginTop="15dp"
                 android:layout_marginRight="25dp"
-                android:ems="10"
                 android:fontFamily="@font/gabriela"
                 android:hint="Ingrese la palabra"
                 android:inputType="textPersonName" />
@@ -61,7 +63,7 @@
                 android:layout_width="72dp"
                 android:layout_height="36dp"
                 android:layout_marginLeft="-12dp"
-                android:layout_marginTop="25dp"
+                android:layout_marginTop="15dp"
                 android:background="@drawable/boton_general"
                 android:text="@android:string/yes"
                 android:textAlignment="center"

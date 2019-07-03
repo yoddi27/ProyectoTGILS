@@ -15,6 +15,8 @@ import android.widget.Toast;
 
 import com.example.proyectotgils.Utilidades.utilidades;
 
+import java.text.Normalizer;
+
 public class Administrador extends Fragment {
 
     private View view;
@@ -61,5 +63,13 @@ public class Administrador extends Fragment {
         }
 
         db.close();
+    }
+
+    public static String palabraSinAcento(String palabra){
+
+        String palabra_buscar = Normalizer.normalize(palabra, Normalizer.Form.NFD);
+        String cadenaSinAcentos = palabra_buscar.replaceAll("[^\\p{ASCII}]", "");
+
+        return cadenaSinAcentos;
     }
 }
