@@ -3,7 +3,7 @@ package com.example.proyectotgils.Utilidades;
 public class utilidades {
     //BD
     public static final String NOMBRE_DB = "bdils";
-    public static final int VERSION_DB = 5;
+    public static final int VERSION_DB = 12;
 
     //Campos de la tabla usuario
     public static final String TBL_USUARIO = "tbl_usuario";
@@ -39,6 +39,92 @@ public class utilidades {
     //Insertando usuario
     public static final String INSERTAR_USUARIO = "INSERT INTO " + TBL_USUARIO
             +" ("
-            +CAMPO_USUARIO+","+CAMPO_CONTRASENIA+")" +
-            " VALUES ('"+USER+"','"+PASS+"')";
+            +CAMPO_USUARIO+","
+            +CAMPO_CONTRASENIA+")"
+            +"VALUES('"+USER+"','"+PASS+"')";
+
+    //Insertando palabrs e imagenes (42 palabras, abecedario y números del 1-10)
+    public static final String INSERTAR_PALABRA = "INSERT INTO " + TBL_PALABRA +
+            "("
+            +CAMPO_PALABRA +","
+            +CAMPO_NOMBREIMGARCHIVO+","
+            +CAMPO_NOMBREIMGARCHIVOEQUIPO+")"
+            +"VALUES('a', 'a', 'a.gif')"+","
+            +"('b', 'b', 'b.gif')"+","
+            +"('c', 'c', 'c.gif')"+","
+            +"('d', 'd', 'd.gif')"+","
+            +"('e', 'e', 'e.gif')"+","
+            +"('f', 'f', 'f.gif')"+","
+            +"('g', 'g', 'g.gif')"+","
+            +"('h', 'h', 'h.gif')"+","
+            +"('i', 'i', 'i.gif')"+","
+            +"('j', 'j', 'j.gif')"+","
+            +"('k', 'k', 'k.gif')"+","
+            +"('l', 'l', 'l.gif')"+","
+            +"('m', 'm', 'm.gif')"+","
+            +"('n', 'n', 'n.gif')"+","
+            +"('ñ', 'ñ', 'ñ.gif')"+","
+            +"('o', 'o', 'o.gif')"+","
+            +"('p', 'p', 'p.gif')"+","
+            +"('q', 'q', 'q.gif')"+","
+            +"('r', 'r', 'r.gif')"+","
+            +"('s', 's', 's.gif')"+","
+            +"('t', 't', 't.gif')"+","
+            +"('u', 'u', 'u.gif')"+","
+            +"('v', 'v', 'v.gif')"+","
+            +"('w', 'w', 'w.gif')"+","
+            +"('x', 'x', 'x.gif')"+","
+            +"('y', 'y', 'y.gif')"+","
+            +"('z', 'z', 'z.gif')"+","
+            +"('uno', '1', '1.gif')"+","
+            +"('dos', '2', '2.gif')"+","
+            +"('tres', '3', '3.gif')"+","
+            +"('cuatro', '4', '4.gif')"+","
+            +"('cinco', '5', '5.gif')"+","
+            +"('seis', '6', '6.gif')"+","
+            +"('siete', '7', '7.gif')"+","
+            +"('ocho', '8', '8.gif')"+","
+            +"('nueve', '9', '9.gif')"+","
+            +"('diez', '10', '10.gif')"+","
+            +"('hola', 'hola', 'hola.gif')"+","
+            +"('cómo estás', 'comoestas', 'comoestas.gif')"+","
+            +"('hola cómo estás', 'holacomoestas', 'holacomoestas.gif')"+","
+            +"('adiós', 'adios', 'adios.gif')"+","
+            +"('buenos dias', 'buenosdias', 'buenosdias.gif')"+","
+            +"('buenas tardes', 'buenastardes', 'buenastardes.gif')"+","
+            +"('buenas noches', 'buenasnoches', 'buenasnoches.gif')"+","
+            +"('ayer', 'ayer', 'ayer.gif')"+","
+            +"('ayudar', 'ayudar', 'ayudar.gif')"+","
+            +"('congusto', 'congusto', 'congusto.gif')"+","
+            +"('deletrear', 'deletrear', 'deletrear.gif')"+","
+            +"('despacio', 'despacio', 'despacio.gif')"+","
+            +"('lento', 'lento', 'lento.gif')"+","
+            +"('entiendo', 'entiendo', 'entiendo.gif')"+","
+            +"('esperar', 'esperar', 'esperar.gif')"+","
+            +"('examen', 'examen', 'examen.gif')"+","
+            +"('grupos', 'grupos', 'grupos.gif')"+","
+            +"('hoy', 'hoy', 'hoy.gif')"+","
+            +"('individual', 'individual', 'individual.gif')"+","
+            +"('losiento', 'losiento', 'losiento.gif')"+","
+            +"('mañana', 'mañana', 'mañana.gif')"+","
+            +"('no', 'no', 'no.gif')"+","
+            +"('porfavor', 'porfavor', 'porfavor.gif')"+","
+            +"('prestar', 'prestar', 'prestar.gif')"+","
+            +"('profesor', 'profesor', 'profesor.gif')"+","
+            +"('repetir', 'repetir', 'repetir.gif')"+","
+            +"('si', 'si', 'si.gif')"+","
+            +"('taller', 'taller', 'taller.gif')"+","
+            +"('baño', 'baño', 'baño.gif')"+","
+            +"('baño hombres', 'bañohombres', 'bañohombres.gif')"+","
+            +"('baño mujeres', 'bañomujeres', 'bañomujeres.gif')"+","
+            +"('bien', 'bien', 'bien.gif')"+","
+            +"('bienvenido', 'bienvenido', 'bienvenido.gif')"+","
+            +"('bloques', 'bloques', 'bloques.gif')"+","
+            +"('estudiar', 'estudiar', 'estudiar.gif')"+","
+            +"('mal', 'mal', 'mal.gif')"+","
+            +"('permiso', 'permiso', 'permiso.gif')"+","
+            +"('politecnico', 'politecnico', 'politecnico.gif')"+","
+            +"('repasar', 'repasar', 'repasar.gif')"+","
+            +"('restaurantes', 'restaurantes', 'restaurantes.gif')";
+
 }

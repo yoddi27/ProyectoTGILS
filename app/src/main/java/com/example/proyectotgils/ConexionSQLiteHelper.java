@@ -28,6 +28,7 @@ public class ConexionSQLiteHelper extends SQLiteOpenHelper {
         db.execSQL(utilidades.CREAR_TABLA_USUARIO);
         db.execSQL(utilidades.CREAR_TABLA_PALABRA);
         db.execSQL(utilidades.INSERTAR_USUARIO);
+        db.execSQL(utilidades.INSERTAR_PALABRA);
     }
 
     @Override
