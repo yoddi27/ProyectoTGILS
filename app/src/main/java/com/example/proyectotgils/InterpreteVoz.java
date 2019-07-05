@@ -13,6 +13,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 import com.example.proyectotgils.Utilidades.utilidades;
@@ -23,6 +24,7 @@ import org.apache.commons.io.IOUtils;
 
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Locale;
 
@@ -73,7 +75,11 @@ public class InterpreteVoz extends Fragment {
         btnOk.setOnClickListener( new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                consultarImgXPalabra();
+                try {
+                    consultarImgXPalabra();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
             }
         } );
         return view;
@@ -99,13 +105,17 @@ public class InterpreteVoz extends Fragment {
             case 10:
                 if(resultCode == Activity.RESULT_OK && data != null){
                     ArrayList<String> resultado = data.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS);
-                    consultarImgXVoz(resultado);
+                    try {
+                        consultarImgXVoz(resultado);
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
                 }
                 break;
         }
     }
 
-    public void consultarImgXPalabra(){
+    public void consultarImgXPalabra() throws IOException {
         conn = new ConexionSQLiteHelper(getContext(), utilidades.NOMBRE_DB,null, utilidades.VERSION_DB);
         String cadenaSinAcentos = Administrador.palabraSinAcento(palabra.getText().toString().toLowerCase());
         Palabra datos = conn.ObtenerDatos(cadenaSinAcentos);
@@ -115,7 +125,6 @@ public class InterpreteVoz extends Fragment {
             try{
                 FileInputStream entradaAnimacionGif = new FileInputStream(getContext().getFilesDir().getPath()+ "/" + datos.getNombreArchivoEquipo());
                 byte[] bytes = IOUtils.toByteArray(entradaAnimacionGif);
-                imgInterpretada.setVisibility(View.VISIBLE);
                 imgInterpretada.setBytes(bytes);
                 imgInterpretada.startAnimation();
             }catch (IOException io){
@@ -128,13 +137,18 @@ public class InterpreteVoz extends Fragment {
         }
         else {
             toSpeech.speak("La palabra "+ palabra.getText().toString()+ " no existe actualmente",TextToSpeech.QUEUE_FLUSH, null);
+
+            InputStream inputStream = getActivity().getAssets().open("no.gif");
+            byte[] bytes = IOUtils.toByteArray(inputStream);
+            imgInterpretada.setBytes(bytes);
+            imgInterpretada.startAnimation();
+
             Toast.makeText(getContext(), "La palabra "+"'"+palabra.getText().toString().trim()+"'"+" No existe!", Toast.LENGTH_SHORT).show();
-            imgInterpretada.setVisibility(View.INVISIBLE);
         }
         db.close();
     }
 
-    public void consultarImgXVoz(ArrayList<String> resultado){
+    public void consultarImgXVoz(ArrayList<String> resultado) throws IOException {
         db=conn.getWritableDatabase();
         palabra.setText(resultado.get(0).trim().toLowerCase());
         String cadenaSinAcentos = Administrador.palabraSinAcento(palabra.getText().toString().toLowerCase());
@@ -157,7 +171,13 @@ public class InterpreteVoz extends Fragment {
         }
         else {
             toSpeech.speak("La palabra "+ palabra.getText().toString()+ " no existe actualmente",TextToSpeech.QUEUE_FLUSH, null);
-            Toast.makeText(getContext(), "La palabra "+ palabra.getText().toString()+ " no existe actualmente", Toast.LENGTH_SHORT).show();
+
+            InputStream inputStream = getActivity().getAssets().open("no.gif");
+            byte[] bytes = IOUtils.toByteArray(inputStream);
+            imgInterpretada.setBytes(bytes);
+            imgInterpretada.startAnimation();
+
+            Toast.makeText(getContext(), "La palabra "+"'"+ palabra.getText().toString()+"'"+ " no existe actualmente", Toast.LENGTH_SHORT).show();
         }
         db.close();
     }

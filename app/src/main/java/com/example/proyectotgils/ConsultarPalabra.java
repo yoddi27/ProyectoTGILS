@@ -18,6 +18,7 @@ import org.apache.commons.io.IOUtils;
 
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStream;
 
 
 public class ConsultarPalabra extends Fragment {
@@ -41,13 +42,17 @@ public class ConsultarPalabra extends Fragment {
         btnConsultar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                consultarImgXPalabra();
+                try {
+                    consultarImgXPalabra();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
             }
         });
         return view;
     }
 
-    public void consultarImgXPalabra(){
+    public void consultarImgXPalabra() throws IOException {
         conn = new ConexionSQLiteHelper(getContext(), utilidades.NOMBRE_DB,null, utilidades.VERSION_DB);
         String cadenaSinAcentos = Administrador.palabraSinAcento(editarPalabra.getText().toString().toLowerCase());
         Palabra datos = conn.ObtenerDatos(cadenaSinAcentos);
@@ -68,6 +73,10 @@ public class ConsultarPalabra extends Fragment {
         }
         else {
             Toast.makeText(getContext(), "La palabra "+"'"+editarPalabra.getText().toString().trim()+"'"+" No existe!", Toast.LENGTH_SHORT).show();
+            InputStream inputStream = getActivity().getAssets().open("no.gif");
+            byte[] bytes = IOUtils.toByteArray(inputStream);
+            imgView.setBytes(bytes);
+            imgView.startAnimation();
         }
         db.close();
     }
