@@ -1,10 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white"
-    android:orientation="vertical"
     tools:context=".ConsultarPalabra">
 
 
@@ -29,19 +28,22 @@
 
         <com.felipecsl.gifimageview.library.GifImageView
             android:id="@+id/img_view"
-            android:layout_width="370dp"
-            android:layout_height="370dp"
+            android:layout_width="300dp"
+            android:layout_height="300dp"
+            android:layout_marginLeft="30dp"
             android:layout_marginTop="30dp"
-            android:layout_marginEnd="20dp" />
+            android:src="@drawable/consultar" />
 
         <EditText
             android:id="@+id/edit_palabra"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="20dp"
+            android:layout_marginTop="30dp"
             android:layout_marginRight="20dp"
+            android:drawableLeft="@drawable/buscarpal"
             android:fontFamily="@font/gabriela"
-            android:hint="Ingrese la palabra"
+            android:hint=" Ingrese la palabra"
             android:inputType="textPersonName" />
 
         <Button
@@ -50,6 +52,7 @@
             android:layout_height="wrap_content"
             android:layout_above="@+id/layout_button"
             android:layout_marginLeft="20dp"
+            android:layout_marginTop="10dp"
             android:layout_marginRight="20dp"
             android:layout_marginBottom="37dp"
             android:background="@drawable/boton_general"
@@ -61,4 +64,4 @@
 
     </LinearLayout>
 
-</RelativeLayout>
+</LinearLayout>

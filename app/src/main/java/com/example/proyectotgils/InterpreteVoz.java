@@ -144,13 +144,12 @@ public class InterpreteVoz extends Fragment {
             try{
                 FileInputStream entradaAnimacionGif = new FileInputStream(getContext().getFilesDir().getPath()+ "/" + datos.getNombreArchivoEquipo());
                 byte[] bytes = IOUtils.toByteArray(entradaAnimacionGif);
-                imgInterpretada.setVisibility(View.VISIBLE);
                 imgInterpretada.setBytes(bytes);
                 imgInterpretada.startAnimation();
             }catch (IOException io){
                 io.printStackTrace();
             }
-            //toSpeech.speak("Usted ha dicho "+resultado.get(0),TextToSpeech.QUEUE_FLUSH, null);
+            toSpeech.speak("Usted ha dicho "+resultado.get(0),TextToSpeech.QUEUE_FLUSH, null);
         }
         else if(palabra.getText().toString().isEmpty()){
             toSpeech.speak("Debe ingresar una palabra",TextToSpeech.QUEUE_FLUSH, null);
@@ -159,8 +158,6 @@ public class InterpreteVoz extends Fragment {
         else {
             toSpeech.speak("La palabra "+ palabra.getText().toString()+ " no existe actualmente",TextToSpeech.QUEUE_FLUSH, null);
             Toast.makeText(getContext(), "La palabra "+ palabra.getText().toString()+ " no existe actualmente", Toast.LENGTH_SHORT).show();
-            imgInterpretada.setVisibility(View.INVISIBLE);
-
         }
         db.close();
     }

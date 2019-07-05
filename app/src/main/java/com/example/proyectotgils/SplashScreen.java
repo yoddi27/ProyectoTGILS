@@ -13,7 +13,7 @@ public class SplashScreen extends AppCompatActivity {
 
     private ImageView logoImage;
     private ProgressBar progress_Bar;
-    private final int TIEMPO_SPLASH = 3000;
+    private final int TIEMPO_SPLASH = 4000;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

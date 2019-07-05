@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -26,17 +26,18 @@
 
         <com.felipecsl.gifimageview.library.GifImageView
             android:id="@+id/img_interpretada"
-            android:layout_width="370dp"
-            android:layout_height="370dp"
+            android:layout_width="300dp"
+            android:layout_height="300dp"
+            android:layout_marginLeft="30dp"
             android:layout_marginTop="10dp"
-            android:layout_marginRight="8dp" />
+            android:src="@drawable/palabraingresada" />
 
         <ImageButton
             android:id="@+id/btn_microfono"
             android:layout_width="55dp"
             android:layout_height="55dp"
             android:layout_marginLeft="145dp"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="30dp"
             android:adjustViewBounds="true"
             android:background="@android:color/transparent"
             android:scaleType="fitCenter"
@@ -55,7 +56,8 @@
                 android:layout_marginTop="15dp"
                 android:layout_marginRight="25dp"
                 android:fontFamily="@font/gabriela"
-                android:hint="Ingrese la palabra"
+                android:drawableLeft="@drawable/teclado"
+                android:hint=" Ingrese la palabra"
                 android:inputType="textPersonName" />
 
             <Button
@@ -72,4 +74,4 @@
         </LinearLayout>
 
     </LinearLayout>
-</RelativeLayout>
+</LinearLayout>

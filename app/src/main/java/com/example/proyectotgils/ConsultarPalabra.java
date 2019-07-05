@@ -51,16 +51,12 @@ public class ConsultarPalabra extends Fragment {
         conn = new ConexionSQLiteHelper(getContext(), utilidades.NOMBRE_DB,null, utilidades.VERSION_DB);
         String cadenaSinAcentos = Administrador.palabraSinAcento(editarPalabra.getText().toString().toLowerCase());
         Palabra datos = conn.ObtenerDatos(cadenaSinAcentos);
-
-        Toast.makeText(getContext(), "cadenaSinAcentos"+cadenaSinAcentos, Toast.LENGTH_SHORT).show();
-
         db=conn.getWritableDatabase();
 
         if (datos != null) {
             try{
                 FileInputStream entradaAnimacionGif = new FileInputStream(getContext().getFilesDir().getPath()+ "/" + datos.getNombreArchivoEquipo());
                 byte[] bytes = IOUtils.toByteArray(entradaAnimacionGif);
-                imgView.setVisibility(View.VISIBLE);
                 imgView.setBytes(bytes);
                 imgView.startAnimation();
             }catch (IOException io){
@@ -72,7 +68,6 @@ public class ConsultarPalabra extends Fragment {
         }
         else {
             Toast.makeText(getContext(), "La palabra "+"'"+editarPalabra.getText().toString().trim()+"'"+" No existe!", Toast.LENGTH_SHORT).show();
-            imgView.setVisibility(View.INVISIBLE);
         }
         db.close();
     }
