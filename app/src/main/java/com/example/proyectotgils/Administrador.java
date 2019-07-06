@@ -31,8 +31,8 @@ public class Administrador extends Fragment {
         btnlogin = view.findViewById(R.id.btn_login);
         txtuser = view.findViewById(R.id.txtusuario);
         txtcont = view.findViewById(R.id.txtcontrasenia);
-        txtuser.setText("admin");
-        txtcont.setText("admin");
+       // txtuser.setText("admin");
+       // txtcont.setText("admin");
 
         btnlogin.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
@@ -65,11 +65,30 @@ public class Administrador extends Fragment {
         db.close();
     }
 
-    public static String palabraSinAcento(String palabra){
+   /* public static String palabraSinAcento(String palabra){
 
         String palabra_buscar = Normalizer.normalize(palabra, Normalizer.Form.NFD);
         String cadenaSinAcentos = palabra_buscar.replaceAll("[^\\p{ASCII}]", "");
 
         return cadenaSinAcentos;
+    }*/
+
+    private static final String ORIGINAL
+            = "ÁáÉéÍíÓóÚúÑñÜü";
+    private static final String REPLACEMENT
+            = "AaEeIiOoUuNnUu";
+
+    public static String stripAccents(String str) {
+        if (str == null) {
+            return null;
+        }
+        char[] array = str.toCharArray();
+        for (int index = 0; index < array.length; index++) {
+            int pos = ORIGINAL.indexOf(array[index]);
+            if (pos > -1) {
+                array[index] = REPLACEMENT.charAt(pos);
+            }
+        }
+        return new String(array);
     }
 }

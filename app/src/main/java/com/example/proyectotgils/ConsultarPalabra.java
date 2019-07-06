@@ -54,7 +54,7 @@ public class ConsultarPalabra extends Fragment {
 
     public void consultarImgXPalabra() throws IOException {
         conn = new ConexionSQLiteHelper(getContext(), utilidades.NOMBRE_DB,null, utilidades.VERSION_DB);
-        String cadenaSinAcentos = Administrador.palabraSinAcento(editarPalabra.getText().toString().toLowerCase());
+        String cadenaSinAcentos = Administrador.stripAccents(editarPalabra.getText().toString().toLowerCase());
         Palabra datos = conn.ObtenerDatos(cadenaSinAcentos);
         db=conn.getWritableDatabase();
 

@@ -2,6 +2,7 @@ package com.example.proyectotgils;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.speech.RecognizerIntent;
@@ -54,6 +55,13 @@ public class InterpreteVoz extends Fragment {
         palabra = view.findViewById(R.id.palabra);
         //textpalabra = view.findViewById(R.id.text_palabra);
 
+        Locale localizacion = new Locale( "es", "ES" );
+
+        Locale.setDefault( localizacion );
+        Configuration config = new Configuration(  );
+        config.locale = localizacion;
+        getActivity().getBaseContext().getResources().updateConfiguration(config, getActivity().getBaseContext().getResources().getDisplayMetrics());
+
         toSpeech = new TextToSpeech(view.getContext(), new TextToSpeech.OnInitListener() {
             @Override
             public void onInit(int i) {
@@ -89,7 +97,7 @@ public class InterpreteVoz extends Fragment {
         Intent intent = new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
         intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL,RecognizerIntent.LANGUAGE_MODEL_FREE_FORM);
         intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE,Locale.getDefault());
-        intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE, new Locale("spa", "MEX"));
+        intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE, new Locale("spa", "COL"));
 
         if (resultado == TextToSpeech.LANG_MISSING_DATA || resultado == TextToSpeech.LANG_NOT_SUPPORTED) {
             Toast.makeText(view.getContext(), "Aqui no es soportado este componente", Toast.LENGTH_SHORT).show();
@@ -117,7 +125,8 @@ public class InterpreteVoz extends Fragment {
 
     public void consultarImgXPalabra() throws IOException {
         conn = new ConexionSQLiteHelper(getContext(), utilidades.NOMBRE_DB,null, utilidades.VERSION_DB);
-        String cadenaSinAcentos = Administrador.palabraSinAcento(palabra.getText().toString().toLowerCase());
+        String cadenaSinAcentos = Administrador.stripAccents(palabra.getText().toString().toLowerCase());
+        Toast.makeText(getContext(), cadenaSinAcentos, Toast.LENGTH_SHORT).show();
         Palabra datos = conn.ObtenerDatos(cadenaSinAcentos);
         db=conn.getWritableDatabase();
 
@@ -144,6 +153,7 @@ public class InterpreteVoz extends Fragment {
             imgInterpretada.startAnimation();
 
             Toast.makeText(getContext(), "La palabra "+"'"+palabra.getText().toString().trim()+"'"+" No existe!", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getContext(), cadenaSinAcentos, Toast.LENGTH_SHORT).show();
         }
         db.close();
     }
@@ -151,7 +161,8 @@ public class InterpreteVoz extends Fragment {
     public void consultarImgXVoz(ArrayList<String> resultado) throws IOException {
         db=conn.getWritableDatabase();
         palabra.setText(resultado.get(0).trim().toLowerCase());
-        String cadenaSinAcentos = Administrador.palabraSinAcento(palabra.getText().toString().toLowerCase());
+        String cadenaSinAcentos = Administrador.stripAccents(palabra.getText().toString().toLowerCase());
+        Toast.makeText(getContext(), cadenaSinAcentos, Toast.LENGTH_SHORT).show();
         Palabra datos = conn.ObtenerDatos(cadenaSinAcentos);
 
         if (datos != null){
@@ -178,6 +189,7 @@ public class InterpreteVoz extends Fragment {
             imgInterpretada.startAnimation();
 
             Toast.makeText(getContext(), "La palabra "+"'"+ palabra.getText().toString()+"'"+ " no existe actualmente", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getContext(), cadenaSinAcentos, Toast.LENGTH_SHORT).show();
         }
         db.close();
     }
